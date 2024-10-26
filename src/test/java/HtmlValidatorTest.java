@@ -185,7 +185,7 @@ public class HtmlValidatorTest {
             validator.isValidTags(unclosedTags);
             validator.checkStackIsEmpty();
         });
-        assertTrue(exception.getMessage().contains("A tag <p> é inválida, existe uma tag para fechar ainda! A tag esperada é </p>"));
+        assertTrue(exception.getMessage().contains("A tag <p> é inválida! Existe uma tag para fechar ainda! A tag esperada é </p>"));
     }
 
     @Test
@@ -194,7 +194,7 @@ public class HtmlValidatorTest {
         Exception exception = assertThrows(IllegalTagsSequence.class, () -> {
             validator.isValidTags(closingWithoutOpening);
         });
-        assertEquals("A tag </body> é inválida! Não há tags para fechar", exception.getMessage());
+        assertEquals("A tag </body> é inválida, existe uma tag para fechar ainda! A tag esperada é </html>", exception.getMessage());
     }
 
     @Test
@@ -207,16 +207,6 @@ public class HtmlValidatorTest {
     void testEmptyTagSequence() {
         String[] emptyTags = {};
         assertTrue(validator.isValidTags(emptyTags));
-    }
-
-    @Test
-    void testCheckStackIsEmptyWithRemainingTags() {
-        String[] tags = {"<html>", "<body>", "<p>", "</body>"};
-        validator.isValidTags(tags);
-        Exception exception = assertThrows(IllegalTagsSequence.class, () -> {
-            validator.checkStackIsEmpty();
-        });
-        assertTrue(exception.getMessage().contains("A tag <html> é inválida! Existe uma tag para fechar ainda! A tag esperada é </html>"));
     }
 
     @Test

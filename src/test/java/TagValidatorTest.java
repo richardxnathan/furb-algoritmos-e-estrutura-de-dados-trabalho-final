@@ -49,4 +49,16 @@ public class TagValidatorTest {
         Tag tag = new Tag("<html >");
         assertTrue(tag.isValidTag());
     }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton() {
+        Tag tag = new Tag("<br>");
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenTagIsNotSingleton() {
+        Tag tag = new Tag("<h1>");
+        assertFalse(tag.isSingleton());
+    }
 }

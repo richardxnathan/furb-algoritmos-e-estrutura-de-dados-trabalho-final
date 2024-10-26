@@ -47,16 +47,6 @@ public class StaticList<T> {
         size--;
     }
 
-    public void removeElementsInRange(int inicio, int fim) {
-        for (int i = inicio; i <= fim; i++) {
-            info[i] = null;
-        }
-        for (int i = fim + 1; i < size; i++) {
-            info[i - (fim - inicio + 1)] = info[i];
-        }
-        size = size - (fim - inicio + 1);
-    }
-
     public void free() {
         info = new Object[10];
         size = 0;
@@ -84,6 +74,10 @@ public class StaticList<T> {
 
     public int getSize() {
         return size;
+    }
+
+    public Object[] getInfo() {
+        return info;
     }
 
     @Override
