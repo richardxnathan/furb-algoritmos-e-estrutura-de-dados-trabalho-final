@@ -90,6 +90,6 @@ public class HtmlValidator {
             }
             throw new IllegalTagsSequence(message.toString());
         }
-        return false;
+        return true;
     }
 }
