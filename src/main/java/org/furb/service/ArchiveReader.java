@@ -49,4 +49,9 @@ public class ArchiveReader {
         }
         return stringsFromObjectList;
     }
+
+    public HtmlValidator getHtmlValidator() {
+        return htmlValidator;
+    }
+    
 }
