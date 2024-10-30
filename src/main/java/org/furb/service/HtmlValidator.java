@@ -22,9 +22,15 @@ public class HtmlValidator {
     public boolean isValidTags(String[] tagsContent) {
         for (String content : tagsContent) {
             Tag tag = new Tag(content);
-            if (!tag.isValidTag()) throw new InvalidTagException("A tag " + content + " é inválida! Sua estrutura não segue os requisitos");
+            if (!tag.isValidTag()) throw new InvalidTagException("A tag " + content + " é inválida! Sua estrutura não segue os requisitos.");
 
-            updateTagStack(tag);
+            tag.tagClear();
+
+            if (tag.isSingleton()){
+                this.putFrequency(tag);
+            } else {
+                updateTagStack(tag);
+            }
         }
         return true;
     }
@@ -32,15 +38,17 @@ public class HtmlValidator {
     private void updateTagStack(Tag tag) {
         if (!tag.isFinal()) {
             tagStack.push(tag);
-            putFrequency(tag);
-        }
-
-        if (tag.isFinal() && !tag.isSingleton()) {
-            if (tagStack.isEmpty()) throw new InvalidHtmlStructureException("A tag " + tag.getContent() + " é inválida! Não há tags para fechar");
+            this.putFrequency(tag);
+        } else {
+            if (tagStack.isEmpty()){
+                throw new InvalidHtmlStructureException("Formato do arquivo inválido! Foi encontrada a tag " + tag.getContent() + " quando não há tag para fechar.");
+            }
 
             Tag lastTag = tagStack.pop();
-            String expectedTag = lastTag.getContent().replace("<", "</");
-            if (!expectedTag.equalsIgnoreCase(tag.getContent())) throw new IllegalTagsSequence("A tag " + tag.getContent() + " é inválida, existe uma tag para fechar ainda! A tag esperada é " + lastTag.getContent().replace("<", "</"));
+            String expectedTag = lastTag.getContentCleared().replace("<", "</");
+            if (!expectedTag.equalsIgnoreCase(tag.getContentCleared())){
+                throw new IllegalTagsSequence("Formato do arquivo inválido!\nTag encontrada: " + tag.getContent() + "\nTag esperada: " + expectedTag);
+            }
         }
     }
 
@@ -75,13 +83,11 @@ public class HtmlValidator {
     public boolean checkStackIsEmpty() {
         if (!tagStack.isEmpty()) {
             Tag current = tagStack.pop();
-            StringBuilder message = new StringBuilder("Sequência de tags inválidas! ");
+            StringBuilder message = new StringBuilder("Formato do arquivo inválido! Faltaram as seguintes tags, nesta ordem:");
 
             while (current != null) {
-                message.append("A tag ")
-                        .append(current.getContent())
-                        .append(" é inválida! Existe uma tag para fechar ainda! A tag esperada é ")
-                        .append(current.getContent().replace("<", "</")).append("\n");
+                message.append("\n")
+                        .append(current.getContentCleared().replace("<", "</"));
                 try {
                     current = tagStack.pop();
                 } catch (Exception e) {

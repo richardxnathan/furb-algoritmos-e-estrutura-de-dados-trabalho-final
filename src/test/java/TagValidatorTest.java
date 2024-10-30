@@ -51,8 +51,93 @@ public class TagValidatorTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenTagIsSingleton() {
+    public void shouldReturnTrueWhenTagIsSingleton_meta() {
+        Tag tag = new Tag("<meta>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_base() {
+        Tag tag = new Tag("<base>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_br() {
         Tag tag = new Tag("<br>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_col() {
+        Tag tag = new Tag("<col>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_command() {
+        Tag tag = new Tag("<command>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_embed() {
+        Tag tag = new Tag("<embed>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_hr() {
+        Tag tag = new Tag("<hr>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_img() {
+        Tag tag = new Tag("<img>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_input() {
+        Tag tag = new Tag("<input>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_link() {
+        Tag tag = new Tag("<link>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_param() {
+        Tag tag = new Tag("<param>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_source() {
+        Tag tag = new Tag("<source>");
+        tag.tagClear();
+        assertTrue(tag.isSingleton());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenTagIsSingleton_doctype() {
+        Tag tag = new Tag("<!DOCTYPE>");
+        tag.tagClear();
         assertTrue(tag.isSingleton());
     }
 
