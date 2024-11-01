@@ -67,10 +67,6 @@ public class Main extends javax.swing.JFrame {
 
         archiveResult.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
             },
             new String [] {
                 "Tag", "Frequencia"
@@ -122,7 +118,6 @@ public class Main extends javax.swing.JFrame {
             archive.readArchiveLines();
 
             archiveFeedback.setText("O arquivo está bem formatado!");
-
             DefaultTableModel model = (DefaultTableModel) archiveResult.getModel();
 
             model.setRowCount(0);
@@ -134,6 +129,8 @@ public class Main extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             archiveFeedback.setText(ex.getMessage());
+            DefaultTableModel model = (DefaultTableModel) archiveResult.getModel();
+            model.setRowCount(0);
         }
       
     }//GEN-LAST:event_archiveButtonActionPerformed
